@@ -1,9 +1,10 @@
-def contar(name):
+def similarityScore(name):
     with open(name) as file:
 
         esq = []
         dir = []
         soma = 0
+        somaSimilarity = 0
 
         lines = [line.strip() for line in file]
 
@@ -16,13 +17,16 @@ def contar(name):
         dir.sort()
 
         for i in range(len(esq)):
-            if(esq[i] > dir[i]):
-                soma += (esq[i] - dir[i])
-            else:
-                soma += (dir[i] - esq[i])
+            for j in range(len(dir)):
+                if esq[i] == dir[j]:
+                    somaSimilarity += 1
+            
+            soma += esq[i] * somaSimilarity
+            somaSimilarity = 0
+
 
         return soma
     
-result = contar("input.txt")
+result = similarityScore("input.txt")
 
 print(result)
